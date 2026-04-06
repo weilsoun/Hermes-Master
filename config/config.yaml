@@ -1,0 +1,105 @@
+# Hermes Agent Configuration — Persistent Docker Instance
+# Provider: OpenRouter | No limitations
+
+# =============================================================================
+# Model Configuration
+# =============================================================================
+model:
+  default: "anthropic/claude-sonnet-4"
+  provider: "openrouter"
+  base_url: "https://openrouter.ai/api/v1"
+
+# =============================================================================
+# OpenRouter Provider Routing
+# =============================================================================
+provider_routing:
+  sort: "throughput"
+  data_collection: "deny"
+
+# =============================================================================
+# Terminal — Local execution inside the container (unrestricted)
+# =============================================================================
+terminal:
+  backend: "local"
+  cwd: "/"
+  timeout: 0           # No timeout
+  lifetime_seconds: 0  # Never expire
+  container_cpu: 0
+  container_memory: 0
+  container_disk: 0
+  container_persistent: true
+
+# =============================================================================
+# Context Compression
+# =============================================================================
+compression:
+  enabled: true
+  threshold: 0.50
+  target_ratio: 0.20
+  protect_last_n: 20
+  summary_model: "google/gemini-2.5-flash"
+
+# =============================================================================
+# Persistent Memory — fully enabled
+# =============================================================================
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 4400    # Double default — persistent agent remembers more
+  user_char_limit: 2750      # Double default
+  nudge_interval: 10
+  flush_min_turns: 4
+
+# =============================================================================
+# Session Reset — disabled for persistence
+# =============================================================================
+session_reset:
+  mode: none      # Never auto-reset — this is a persistent agent
+  idle_minutes: 0
+  at_hour: 0
+
+group_sessions_per_user: false
+
+# =============================================================================
+# Agent Behavior — maximum capability
+# =============================================================================
+agent:
+  max_turns: 200       # Very high iteration limit
+  verbose: false
+  reasoning_effort: "high"
+
+# =============================================================================
+# Skills
+# =============================================================================
+skills:
+  creation_nudge_interval: 10
+
+# =============================================================================
+# Toolsets — ALL tools enabled on every platform
+# =============================================================================
+platform_toolsets:
+  cli: [all]
+  telegram: [all]
+  discord: [all]
+  whatsapp: [all]
+  slack: [all]
+  signal: [all]
+
+# =============================================================================
+# Browser
+# =============================================================================
+browser:
+  inactivity_timeout: 600   # 10 min — longer for deep browsing
+
+# =============================================================================
+# STT
+# =============================================================================
+stt:
+  enabled: true
+  model: "whisper-1"
+
+# =============================================================================
+# Streaming
+# =============================================================================
+streaming:
+  enabled: false

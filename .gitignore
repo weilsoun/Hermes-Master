@@ -1,0 +1,12 @@
+# Secrets — never commit real keys (root .env only)
+/.env
+
+# But allow the config template
+!config/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker build artifacts
+*.tar

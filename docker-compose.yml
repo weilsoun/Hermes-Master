@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  hermes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hermes-agent
+    restart: unless-stopped
+
+    # ── NO LIMITATIONS ──────────────────────────────────────────────────
+    privileged: true
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+
+    # No resource ceilings — use everything the host has
+    # (uncomment deploy block below only if you want to SET limits)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: "8"
+    #       memory: 32G
+
+    # ── Persistent storage ──────────────────────────────────────────────
+    volumes:
+      - hermes-data:/opt/data          # Sessions, memory, skills, config
+      - hermes-logs:/opt/data/logs     # Trajectory logs
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker-in-Docker access
+
+    # ── Environment ─────────────────────────────────────────────────────
+    env_file:
+      - .env
+
+    environment:
+      - HERMES_HOME=/opt/data
+      - TERMINAL_TIMEOUT=0
+      - TERMINAL_LIFETIME_SECONDS=0
+
+    # ── Network — full host access ──────────────────────────────────────
+    network_mode: host
+
+    # Interactive TTY for CLI usage
+    stdin_open: true
+    tty: true
+
+volumes:
+  hermes-data:
+    name: hermes-agent-data
+  hermes-logs:
+    name: hermes-agent-logs
