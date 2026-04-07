@@ -1,12 +1,33 @@
-# Secrets — never commit real keys (root .env only)
+# ── Secrets (copy .env manually to new servers) ──────────────────
 /.env
+/data/opt-data/.env
 
-# But allow the config template
-!config/.env
+# ── Workspace repos (re-clone from GitHub, don't commit) ─────────
+/data/workspace/
 
-# OS
+# ── Heavy cache files (rebuilt automatically) ─────────────────────
+/data/opt-data/models_dev_cache.json
+/data/opt-data/cache/
+/data/opt-data/sandboxes/
+/data/opt-data/state.db-shm
+/data/opt-data/state.db-wal
+/data/opt-data/logs/
+/data/opt-data/images/
+
+# ── OS junk ───────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 
-# Docker build artifacts
+# ── Docker build artifacts ────────────────────────────────────────
 *.tar
+
+# ── But KEEP these important data paths ───────────────────────────
+!data/opt-data/skills/
+!data/opt-data/memories/
+!data/opt-data/sessions/
+!data/opt-data/state.db
+!data/opt-data/config.yaml
+!data/opt-data/SOUL.md
+!data/opt-data/.env
+!data/hermes/
+!data/config/
