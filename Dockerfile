@@ -33,6 +33,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates gnupg2 locales tzdata \
     && rm -rf /var/lib/apt/lists/*
 
+# ── GitHub CLI (gh) ───────────────────────────────────────────────────────────
+# Baked into image so auth persists via mounted ~/.config volume
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
+    chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+    > /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update -q && apt-get install -y gh && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8

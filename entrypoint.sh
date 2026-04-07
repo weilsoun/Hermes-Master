@@ -39,6 +39,16 @@ if [ "${HERMES_AUTO_UPDATE:-false}" = "true" ]; then
     cd /
 fi
 
+# ── Git identity (always set, uses gh token for push auth) ─────────────────
+git config --global user.name "Mike Wilson" 2>/dev/null || true
+git config --global user.email "mike@factor1digital.com" 2>/dev/null || true
+git config --global credential.helper store 2>/dev/null || true
+
+# ── Configure git to use gh for auth (no password prompts) ─────────────────
+if command -v gh &>/dev/null; then
+    gh auth setup-git 2>/dev/null || true
+fi
+
 echo "[hermes] Ready. HERMES_HOME=$HERMES_HOME"
 echo "[hermes] Provider: OpenRouter"
 echo "[hermes] Starting: $@"
