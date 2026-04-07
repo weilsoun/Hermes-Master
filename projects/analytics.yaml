@@ -1,0 +1,11 @@
+name: Analytics
+status: active
+type: internal
+description: Factor1Digital analytics project
+owner: Mike Wilson
+repos:
+  - name: analytics
+    url: weilsoun/analytics
+    description: Analytics — Vue/JS
+    path: /workspace/analytics
+notes: Active project
