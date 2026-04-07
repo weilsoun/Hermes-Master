@@ -1,24 +1,23 @@
 #!/bin/bash
-# save.sh — snapshot and commit the entire Hermes agent state to git
-# Since ./data/ is bind-mounted, it's already live on disk.
-# This just commits whatever is there.
-#
+# save.sh — snapshot, commit, and push Hermes state to GitHub
+# bind-mounted data/ is already live on disk, just commit and push.
 # Usage: ./save.sh "optional message"
-# Run from weiltron-1 in ~/Hermes-Master/
 
 set -e
 cd "$(dirname "$0")"
 
 MSG="${1:-auto-save $(date '+%Y-%m-%d %H:%M')}"
 
+# Ensure git remote has auth
+TOKEN=$(grep GITHUB_TOKEN /root/.hermes/.env 2>/dev/null | cut -d= -f2 | tr -d '\n')
+if [ -n "$TOKEN" ]; then
+  git remote set-url origin "https://weilsoun:${TOKEN}@github.com/weilsoun/Hermes-Master.git"
+fi
+
 echo "Saving Hermes state..."
-git add data/ projects/
-git add -u
+git add -A
 git commit -m "save: $MSG" || echo "Nothing new to commit"
 git push origin main
 
 echo ""
-echo "Done. Restore on any machine with:"
-echo "  git clone https://github.com/weilsoun/Hermes-Master"
-echo "  cd Hermes-Master && cp .env.example .env  # add your API keys"
-echo "  docker compose up -d --build"
+echo "Saved to github.com/weilsoun/Hermes-Master"
