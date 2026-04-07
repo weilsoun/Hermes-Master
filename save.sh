@@ -32,3 +32,6 @@ git push origin main
 
 echo ""
 echo "Saved! Run 'git pull' on any machine to get this state."
+
+# Save project definitions (already in git, just make sure they're current)
+echo "Project definitions are in projects/ folder (already tracked by git)"

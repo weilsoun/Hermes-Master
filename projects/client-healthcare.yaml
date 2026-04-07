@@ -1,0 +1,20 @@
+name: Healthcare Client Projects
+status: active
+type: client
+client: Healthcare Division
+description: All healthcare-related client deliverables
+owner: Mike Wilson
+repos:
+  - name: f1d-hc-zentalis-map
+    url: weilsoun/f1d-hc-zentalis-map
+    description: Zentalis mapping project
+    path: /workspace/f1d-hc-zentalis-map
+  - name: f1d-elevatehc-orladeyo-game-kiosk
+    url: weilsoun/f1d-elevatehc-orladeyo-game-kiosk
+    description: ElevateHC Orladeyo game kiosk
+    path: /workspace/f1d-elevatehc-orladeyo-game-kiosk
+  - name: f1d-2512-GSK-VxMA-2026-Congress-Experience
+    url: weilsoun/f1d-2512-GSK-VxMA-2026-Congress-Experience
+    description: GSK VxMA 2026 Congress Experience
+    path: /workspace/f1d-2512-GSK-VxMA-2026-Congress-Experience
+notes: Healthcare pharma client work

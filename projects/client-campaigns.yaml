@@ -1,0 +1,20 @@
+name: Campaign Projects
+status: archived
+type: client
+client: Various
+description: Completed campaign deliverables
+owner: Mike Wilson
+repos:
+  - name: brownchase-26-asp-phillies-als-campaign
+    url: weilsoun/brownchase-26-asp-phillies-als-campaign
+    description: Brownchase ASP Phillies ALS campaign
+    path: /workspace/brownchase-26-asp-phillies-als-campaign
+  - name: fid-pch-2025-holiday-email
+    url: weilsoun/fid-pch-2025-holiday-email
+    description: PCH 2025 holiday email campaign
+    path: /workspace/fid-pch-2025-holiday-email
+  - name: Emailtron
+    url: weilsoun/Emailtron
+    description: Email automation tool
+    path: /workspace/Emailtron
+notes: "Archived -- repos not cloned unless needed"

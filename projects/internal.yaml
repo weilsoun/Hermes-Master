@@ -1,0 +1,39 @@
+name: Factor1Digital Internal Tools
+status: active
+type: internal
+description: Core company infrastructure, AI systems, and internal tooling
+owner: Mike Wilson
+repos:
+  - name: Hermes-Master
+    url: weilsoun/Hermes-Master
+    description: Hermes AI agent Docker setup
+    path: /workspace/Hermes-Master
+  - name: factor1-digital-ai
+    url: weilsoun/factor1-digital-ai
+    description: ARIA company management dashboard
+    path: /workspace/factor1-digital-ai
+  - name: factor1digital-website
+    url: weilsoun/factor1digital-website
+    description: Company website -- Nuxt 3 static site
+    path: /workspace/factor1digital-website
+  - name: angentic
+    url: weilsoun/angentic
+    description: Multi-agent coding agency system
+    path: /workspace/angentic
+  - name: pi-team
+    url: weilsoun/pi-team
+    description: PI multi-team agentic workflow
+    path: /workspace/pi-team
+  - name: claude-skills
+    url: weilsoun/claude-skills
+    description: Claude Code skills sync
+    path: /workspace/claude-skills
+  - name: claude-sync
+    url: weilsoun/claude-sync
+    description: Claude settings sync via Bunny CDN
+    path: /workspace/claude-sync
+  - name: skill-toolbox
+    url: weilsoun/skill-toolbox
+    description: 28-skill mega-toolbox for Claude Code
+    path: /workspace/skill-toolbox
+notes: "Core tools -- always active"
