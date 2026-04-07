@@ -1,0 +1,20 @@
+{
+  "name": "hermes-master",
+  "version": "1.0.0",
+  "description": "Factor1Digital Hermes AI Agent — Docker setup and project management",
+  "private": true,
+  "scripts": {
+    "save":       "bash save.sh",
+    "projects":   "bash proj.sh list",
+    "status":     "bash proj.sh status",
+    "clone":      "bash proj.sh clone",
+    "archive":    "bash proj.sh archive",
+    "new":        "bash proj.sh new",
+    "open":       "bash proj.sh open",
+    "dashboard":  "cd /workspace/factor1-digital-ai && node src/dashboard/server.js",
+    "logs":       "docker compose logs -f",
+    "up":         "docker compose up -d",
+    "down":       "docker compose down",
+    "rebuild":    "docker compose up -d --build"
+  }
+}
