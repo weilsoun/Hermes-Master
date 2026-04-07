@@ -43,6 +43,7 @@ fi
 git config --global user.name "Mike Wilson" 2>/dev/null || true
 git config --global user.email "mike@factor1digital.com" 2>/dev/null || true
 git config --global credential.helper store 2>/dev/null || true
+git config --global pull.rebase false 2>/dev/null || true
 
 # ── Configure git to use gh for auth (no password prompts) ─────────────────
 if command -v gh &>/dev/null; then
