@@ -1,37 +1,24 @@
 #!/bin/bash
-# save.sh — commit current Hermes state to git
-# Run this on weiltron-1 whenever you want to snapshot your AI system.
+# save.sh — snapshot and commit the entire Hermes agent state to git
+# Since ./data/ is bind-mounted, it's already live on disk.
+# This just commits whatever is there.
+#
 # Usage: ./save.sh "optional message"
+# Run from weiltron-1 in ~/Hermes-Master/
 
 set -e
 cd "$(dirname "$0")"
 
 MSG="${1:-auto-save $(date '+%Y-%m-%d %H:%M')}"
 
-# Copy live data from container into ./data/
-echo "Syncing from container..."
-CONTAINER=$(docker ps -qf "name=hermes-agent")
-
-if [ -z "$CONTAINER" ]; then
-  echo "ERROR: hermes-agent container not running"
-  exit 1
-fi
-
-mkdir -p data/opt-data data/hermes data/config
-
-docker cp "$CONTAINER":/opt/data/. data/opt-data/ 2>/dev/null
-docker cp "$CONTAINER":/root/.hermes/. data/hermes/ 2>/dev/null
-docker cp "$CONTAINER":/root/.config/. data/config/ 2>/dev/null
-
-# Commit
-echo "Committing..."
-git add data/
+echo "Saving Hermes state..."
+git add data/ projects/
 git add -u
 git commit -m "save: $MSG" || echo "Nothing new to commit"
 git push origin main
 
 echo ""
-echo "Saved! Run 'git pull' on any machine to get this state."
-
-# Save project definitions (already in git, just make sure they're current)
-echo "Project definitions are in projects/ folder (already tracked by git)"
+echo "Done. Restore on any machine with:"
+echo "  git clone https://github.com/weilsoun/Hermes-Master"
+echo "  cd Hermes-Master && cp .env.example .env  # add your API keys"
+echo "  docker compose up -d --build"
