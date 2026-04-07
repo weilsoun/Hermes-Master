@@ -16,19 +16,19 @@ services:
     cap_add:
       - ALL
 
-    # No resource ceilings — use everything the host has
-    # (uncomment deploy block below only if you want to SET limits)
-    # deploy:
-    #   resources:
-    #     limits:
-    #       cpus: "8"
-    #       memory: 32G
-
-    # ── Persistent storage ──────────────────────────────────────────────
+    # ── Persistent storage — bind mounts into ./data/ ───────────────────
+    # All data lives in the Hermes-Master/data/ folder next to this file.
+    # Back up that folder = back up everything.
     volumes:
-      - hermes-data:/opt/data          # Sessions, memory, skills, config
-      - hermes-logs:/opt/data/logs     # Trajectory logs
+      - ./data/opt-data:/opt/data               # Hermes brain: memory, skills, sessions, config
+      - ./data/hermes:/root/.hermes             # Company KB, env file, task log
+      - ./data/config:/root/.config             # GitHub CLI auth (gh)
+      - ./data/workspace:/workspace             # All Git repos
       - /var/run/docker.sock:/var/run/docker.sock  # Docker-in-Docker access
+
+    # ── Ports ───────────────────────────────────────────────────────────
+    ports:
+      - "3000:3000"   # ARIA dashboard (Factor1Digital company AI)
 
     # ── Environment ─────────────────────────────────────────────────────
     env_file:
@@ -39,15 +39,6 @@ services:
       - TERMINAL_TIMEOUT=0
       - TERMINAL_LIFETIME_SECONDS=0
 
-    # ── Network — full host access ──────────────────────────────────────
-    network_mode: host
-
     # Interactive TTY for CLI usage
     stdin_open: true
     tty: true
-
-volumes:
-  hermes-data:
-    name: hermes-agent-data
-  hermes-logs:
-    name: hermes-agent-logs
